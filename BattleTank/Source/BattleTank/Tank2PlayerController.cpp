@@ -2,6 +2,12 @@
 
 #include "Tank2PlayerController.h"
 
+void ATank2PlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	AimTowardsCrosshair();
+}
+
 void ATank2PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -18,4 +24,15 @@ ATank* ATank2PlayerController::GetControlledTank() const
 	return Cast<ATank>(GetPawn());
 }
 
+void ATank2PlayerController::AimTowardsCrosshair()
+{
+	if (!GetControlledTank())
+	{
+		return;
+	}
+
+	// GetWorldLocation Through the linetrace
+	   // if it hits something
+	      // turn barrel to it
+}
 

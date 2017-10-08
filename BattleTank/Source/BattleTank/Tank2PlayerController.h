@@ -19,6 +19,11 @@ public:
 	ATank* GetControlledTank() const;
 
 	virtual void BeginPlay() override;
+
+	virtual void Tick(float DeltaTime) override;
+
+	// aim towards Crosshair and define where shot would interact with world
+	void AimTowardsCrosshair();
 	
 	
 };
