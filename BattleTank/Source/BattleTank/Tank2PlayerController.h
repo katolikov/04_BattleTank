@@ -24,6 +24,9 @@ public:
 
 	// aim towards Crosshair and define where shot would interact with world
 	void AimTowardsCrosshair();
+
+	// define location of shot using crosshair and rayCast (return true, if it hits landscape)
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	
 	
 };
