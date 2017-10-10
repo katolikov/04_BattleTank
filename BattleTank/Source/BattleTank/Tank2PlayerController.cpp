@@ -37,7 +37,7 @@ void ATank2PlayerController::AimTowardsCrosshair()
 	OUT FVector HitLocation; // out param
 	if (GetSightRayHitLocation(OUT HitLocation))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("HitLocation is %s"), *HitLocation.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("HitLocation is %s"), *HitLocation.ToString());
 
 		// GetWorldLocation Through the linetrace
 		// TODO turn barrel to it
@@ -47,7 +47,11 @@ void ATank2PlayerController::AimTowardsCrosshair()
 // GetWorldLocation Through the linetrace, true if hits linetrace
 bool ATank2PlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 {
-	HitLocation = FVector(1.0);
+	// Find the crosshair position in pixel coordinates
+	int32 ViewportSizeX, ViewportSizeY;
+    GetViewportSize(ViewportSizeX, ViewportSizeY);
+	auto ScreenLocation = FVector2D(CrossHairXLocation * ViewportSizeX, CrossHairYLocation * ViewportSizeY);
+	
 	return true;
 }
 

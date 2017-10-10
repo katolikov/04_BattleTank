@@ -15,7 +15,8 @@ class BATTLETANK_API ATank2PlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
-public:
+private:
+
 	ATank* GetControlledTank() const;
 
 	virtual void BeginPlay() override;
@@ -27,6 +28,10 @@ public:
 
 	// define location of shot using crosshair and rayCast (return true, if it hits landscape)
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
-	
-	
+
+	UPROPERTY(EditAnywhere)
+		float CrossHairXLocation = 0.5;
+
+	UPROPERTY(EditAnywhere)
+		float CrossHairYLocation = 0.33333;
 };
