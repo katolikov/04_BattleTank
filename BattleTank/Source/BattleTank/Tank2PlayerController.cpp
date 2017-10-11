@@ -18,7 +18,7 @@ void ATank2PlayerController::BeginPlay()
 	if (!Owner) { return; }
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Owner is %s"), *Owner->GetName());
+		//UE_LOG(LogTemp, Warning, TEXT("Owner is %s"), *Owner->GetName());
 	}
 }
 
@@ -52,6 +52,22 @@ bool ATank2PlayerController::GetSightRayHitLocation(FVector& HitLocation) const
     GetViewportSize(ViewportSizeX, ViewportSizeY);
 	auto ScreenLocation = FVector2D(CrossHairXLocation * ViewportSizeX, CrossHairYLocation * ViewportSizeY);
 	
+	// "De-project" the screen position of the crosshair to a world direction
+	OUT FVector LookDirection; // out param
+	if (GetLookDirection(ScreenLocation,OUT LookDirection))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Crosshair in %s"), *LookDirection.ToString());
+	}
+
+	// Line Trace along LookDirection
+
 	return true;
 }
 
+bool ATank2PlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
+{
+	FVector WorldLocation; // to be discarded
+
+	return  DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, WorldLocation, LookDirection);
+
+}
