@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tank2PlayerController.h"
+#include "DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
 
 #define OUT
@@ -37,7 +38,7 @@ void ATank2PlayerController::AimTowardsCrosshair()
 	OUT FVector HitLocation; // out param
 	if (GetSightRayHitLocation(OUT HitLocation))
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("HitLocation is %s"), *HitLocation.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("HitLocation is %s"), *HitLocation.ToString());
 
 		// GetWorldLocation Through the linetrace
 		// TODO turn barrel to it
@@ -56,10 +57,9 @@ bool ATank2PlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	OUT FVector LookDirection; // out param
 	if (GetLookDirection(ScreenLocation,OUT LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Crosshair in %s"), *LookDirection.ToString());
+		// Line Trace along LookDirection
+		GetLookVectorHitLocation(LookDirection, OUT HitLocation);
 	}
-
-	// Line Trace along LookDirection
 
 	return true;
 }
@@ -70,4 +70,21 @@ bool ATank2PlayerController::GetLookDirection(FVector2D ScreenLocation, FVector&
 
 	return  DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, WorldLocation, LookDirection);
 
+}
+
+bool ATank2PlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
+{
+	FHitResult Hit;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + LookDirection * LineTraceRange;
+	if (GetWorld()->LineTraceSingleByChannel( Hit, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility))
+	{
+		HitLocation = Hit.Location;
+
+		return true;
+	}
+
+	HitLocation = FVector(0);
+
+	return false;
 }
