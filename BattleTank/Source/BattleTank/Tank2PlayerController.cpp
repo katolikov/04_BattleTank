@@ -38,10 +38,7 @@ void ATank2PlayerController::AimTowardsCrosshair()
 	OUT FVector HitLocation; // out param
 	if (GetSightRayHitLocation(OUT HitLocation))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("HitLocation is %s"), *HitLocation.ToString());
-
-		// GetWorldLocation Through the linetrace
-		// TODO turn barrel to it
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
