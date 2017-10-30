@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/Actor.h"
+#include "UnrealMathUtility.h"
 #include "TankBarrel.generated.h"
 
 // Component of our Barrel with properties
@@ -19,7 +20,7 @@ public:
 	
 private:
 	UPROPERTY(EditAnywhere, Category = Setup)
-		float MaxDegreesPerSecond = 20; // Sensible value
+		float MaxDegreesPerSecond = 5; // Sensible value
 
 	UPROPERTY(EditAnywhere, Category = Setup)
 		float MaxDegreesElevation = 40; // Sensible value

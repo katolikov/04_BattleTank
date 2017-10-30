@@ -58,7 +58,7 @@ bool ATank2PlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 		// Line Trace along LookDirection
 		GetLookVectorHitLocation(LookDirection, OUT HitLocation);
 	}
-
+	
 	return true;
 }
 
