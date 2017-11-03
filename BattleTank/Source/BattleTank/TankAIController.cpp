@@ -39,10 +39,6 @@ void ATankAIController::BeginPlay()
 	Super::BeginPlay();
 	ATank* Owner = GetPlayerTank();
 	if (!Owner) { return; }
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AIOwner find a %s"), *Owner->GetName());
-	}
 }
 
 ATank* ATankAIController::GetControlledAITank() const
