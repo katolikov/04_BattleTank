@@ -9,46 +9,31 @@
 void  ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (!GetPlayerTank())
+
+	if (!(Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn())))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No aim"));
 	}
 	else
 	{
 		// TODO move towards to the player
-
-
 		// Aim towards the player
-		ATank* Owner = GetPlayerTank();
-		if (!GetControlledAITank())
+		ATank* Owner = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+		if (!(Cast<ATank>(GetPawn())))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("No AI tank"));
 		}
 		else
 		{
-			GetControlledAITank()->AimAt(Owner->GetActorLocation());
+			(Cast<ATank>(GetPawn()))->AimAt(Owner->GetActorLocation());
 		}
 
-		// Fire if ready
-
+		(Cast<ATank>(GetPawn()))->Fire(); // Don't fire every frame
 	}
 }
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	ATank* Owner = GetPlayerTank();
-	if (!Owner) { return; }
 }
-
-ATank* ATankAIController::GetControlledAITank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
-ATank* ATankAIController::GetPlayerTank() const
-{
-	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-}
-
 
