@@ -5,8 +5,6 @@
 #include "DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
 
-#define OUT
-
 void ATank2PlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -36,8 +34,8 @@ void ATank2PlayerController::AimTowardsCrosshair()
 		return;
 	}
 
-	OUT FVector HitLocation; // out param
-	if (GetSightRayHitLocation(OUT HitLocation))
+	FVector HitLocation; 
+	if (GetSightRayHitLocation(HitLocation))
 	{
 		GetControlledTank()->AimAt(HitLocation);
 	}
@@ -52,11 +50,11 @@ bool ATank2PlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	auto ScreenLocation = FVector2D(CrossHairXLocation * ViewportSizeX, CrossHairYLocation * ViewportSizeY);
 	
 	// "De-project" the screen position of the crosshair to a world direction
-	OUT FVector LookDirection; // out param
-	if (GetLookDirection(ScreenLocation,OUT LookDirection))
+	FVector LookDirection; 
+	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		// Line Trace along LookDirection
-		GetLookVectorHitLocation(LookDirection, OUT HitLocation);
+		GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
 	
 	return true;
