@@ -8,6 +8,7 @@
 #include "Tank.generated.h" // must be the last
 
 class UTankAimingComponent;
+class UTankMovementComponent;
 class UTankBarrel; // Forward Declaration
 class UTankTurret;
 class AProjectile;
@@ -19,6 +20,8 @@ class BATTLETANK_API ATank : public APawn
 
 protected:
     UTankAimingComponent* TankAimingComponent = nullptr;
+	UPROPERTY(BlueprintReadOnly)
+		UTankMovementComponent* TankMovementComponent = nullptr;
 
 public:
 	void AimAt(FVector HitLocation);

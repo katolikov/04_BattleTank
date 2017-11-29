@@ -16,12 +16,6 @@ void ATank2PlayerController::Tick(float DeltaTime)
 void ATank2PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	ATank* Owner = GetControlledTank();
-	if (!Owner) { return; }
-	else
-	{
-		//UE_LOG(LogTemp, Warning, TEXT("Owner is %s"), *Owner->GetName());
-	}
 }
 
 ATank* ATank2PlayerController::GetControlledTank() const
