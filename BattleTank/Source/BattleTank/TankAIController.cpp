@@ -17,6 +17,8 @@ void  ATankAIController::Tick(float DeltaTime)
 	else
 	{
 		// TODO move towards to the player
+		MoveToActor(Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn()), AcceptanceRadius);
+
 		// Aim towards the player
 		ATank* Owner = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 		if (!(Cast<ATank>(GetPawn())))
