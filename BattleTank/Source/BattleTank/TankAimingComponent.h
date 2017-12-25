@@ -9,9 +9,20 @@
 #include "TankAimingComponent.generated.h"
 
 
+// new-style enum class for aiming states
+UENUM()
+enum class EFiringStatus : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+
+
 // Forward Declaration
 class UTankBarrel;
 class UTankTurret;
+
 
 // Holds barrel's properties and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -28,6 +39,12 @@ public:
 	void SetTurretReference(UTankTurret* TurretToSet);
 
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
+
+
+protected:
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+		EFiringStatus FireStatus = EFiringStatus::Locked;
+
 	
 private:
 	UTankBarrel* Barrel = nullptr;
