@@ -39,7 +39,7 @@ public:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-		EFiringStatus FireStatus = EFiringStatus::Locked;
+		EFiringStatus FireStatus = EFiringStatus::Aiming;
 
 	
 private:

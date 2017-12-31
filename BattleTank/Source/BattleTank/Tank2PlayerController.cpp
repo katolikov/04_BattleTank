@@ -1,7 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Games by Mark0f
 
 #include "Tank2PlayerController.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 #include "DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
 
@@ -16,6 +17,15 @@ void ATank2PlayerController::Tick(float DeltaTime)
 void ATank2PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent)
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player Controller can't find AimingComponent at Begin Play"));
+	}
 }
 
 ATank* ATank2PlayerController::GetControlledTank() const
