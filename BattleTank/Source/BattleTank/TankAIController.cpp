@@ -10,7 +10,7 @@ void  ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!(Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn())))
+	if (!ensure ((Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn()))))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No aim"));
 	}
@@ -21,7 +21,7 @@ void  ATankAIController::Tick(float DeltaTime)
 
 		// Aim towards the player
 		ATank* Owner = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-		if (!(Cast<ATank>(GetPawn())))
+		if (!ensure ((Cast<ATank>(GetPawn()))))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("No AI tank"));
 		}
