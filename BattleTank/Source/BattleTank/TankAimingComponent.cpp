@@ -35,7 +35,7 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 }
 
 
-void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
+void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	if (!ensure (Barrel))
 	{
@@ -54,5 +54,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	}
 	// else do nothing
 }
+
+
 
 

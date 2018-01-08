@@ -1,41 +1,36 @@
 // Copyright Games by Mark0f
 
 #include "TankAIController.h"
-#include "Tank.h"
+#include "TankAimingComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
+// Depends on movement component via pathfinding logic
+
+
+void ATankAIController::BeginPlay()
+{
+	Super::BeginPlay();
+}
 
 
 void  ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!ensure ((Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn()))))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No aim"));
-	}
-	else
-	{
-		// TODO move towards to the player
-		MoveToActor(Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn()), AcceptanceRadius);
+	auto Owner = GetWorld()->GetFirstPlayerController()->GetPawn();
+	auto AITank = GetPawn();
+	if (!ensure(Owner && AITank)) { return; }
 
-		// Aim towards the player
-		ATank* Owner = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-		if (!ensure ((Cast<ATank>(GetPawn()))))
-		{
-			UE_LOG(LogTemp, Warning, TEXT("No AI tank"));
-		}
-		else
-		{
-			(Cast<ATank>(GetPawn()))->AimAt(Owner->GetActorLocation());
-		}
+	// Move towards to the player
+	MoveToActor(Owner, AcceptanceRadius); // TODO check AcceptanceRadius in cm
 
-		(Cast<ATank>(GetPawn()))->Fire(); // Don't fire every frame
-	}
+	// Aim towards the player
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
+	AimingComponent->AimAt(Owner->GetActorLocation());
+
+	// TODO fix firing
+	// GetPawn()->Fire(); // Don't fire every frame
 }
 
-void ATankAIController::BeginPlay()
-{
-	Super::BeginPlay();
-}
 
