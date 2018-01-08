@@ -45,7 +45,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	OUT FVector LaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
-	// Calculate OUT LaunchVelocity
+	// Calculate OUT LaunchVelocity (out param)
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, LaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace); // last parameter must be present to prevent bug
 	if (ensure (bHaveAimSolution))
 	{
