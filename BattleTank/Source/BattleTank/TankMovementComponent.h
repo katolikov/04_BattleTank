@@ -1,4 +1,4 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #pragma once
 
@@ -9,6 +9,7 @@
 
 // Forward Declaration
 class UTankTrack;
+
 
 // Driving Tank Tracks
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -25,7 +26,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet);
-
 
 private:
 	// Called from the pathfinding logic by the AI controllers

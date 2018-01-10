@@ -1,8 +1,6 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #include "Tank.h"
-#include "TankBarrel.h"
-#include "Projectile.h"
 #include "UObject/UObjectGlobals.h" 
 
 
@@ -11,27 +9,6 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-}
-
-
-void ATank::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
-
-void ATank::Fire()
-{
-	if (!ensure (Barrel)) { return; }
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
-	{
-		// Spawn a projectile at the socket location on the barrel
-		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBP, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
-
-		// Launch our projectile
-		Projectile->LaunchProjectile(LaunchSpeed);
-		LastFireTime = FPlatformTime::Seconds();
-	}
 }
 
 

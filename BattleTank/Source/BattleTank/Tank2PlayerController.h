@@ -1,4 +1,4 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #pragma once
 
@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "Tank2PlayerController.generated.h" // Must be the last include
 
+
+// Forward Declaration
 class UTankAimingComponent;
 
 
@@ -15,15 +17,11 @@ class BATTLETANK_API ATank2PlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
-
 protected:
-
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
-
 private:
-
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;

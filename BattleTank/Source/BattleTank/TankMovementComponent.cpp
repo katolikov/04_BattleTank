@@ -1,4 +1,4 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #include "TankMovementComponent.h"
 #include "TankTrack.h"
@@ -10,6 +10,7 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 	RightTrack = RightTrackToSet;
 }
 
+
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	if (!ensure (LeftTrack && RightTrack)) { return; }
@@ -17,12 +18,14 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	RightTrack->SetThrottle(Throw);
 }
 
+
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	if (!ensure(LeftTrack && RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
+
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {

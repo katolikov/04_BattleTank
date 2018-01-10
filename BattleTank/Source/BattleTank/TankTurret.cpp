@@ -1,6 +1,7 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #include "TankTurret.h"
+
 
 void  UTankTurret::Rotate(float RelativeSpeed)
 {

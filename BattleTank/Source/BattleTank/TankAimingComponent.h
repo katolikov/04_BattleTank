@@ -1,4 +1,4 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #pragma once
 
@@ -19,9 +19,10 @@ enum class EFiringStatus : uint8
 };
 
 
-// Forward Declaration
+// Forward Declarations
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 
 // Holds barrel's properties and Elevate method
@@ -36,22 +37,32 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		void Fire();
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 		EFiringStatus FireStatus = EFiringStatus::Aiming;
 
-	
 private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+	// Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
 
 	UTankTurret* Turret = nullptr;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 4000;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float ReloadTimeInSeconds = 3.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		TSubclassOf<AProjectile> ProjectileBP;
+
+	double LastFireTime = 0;
 
 	void MoveBarrel(FVector AimDirection);
 };

@@ -1,4 +1,4 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #pragma once
 
@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
 #include "TankTrack.generated.h"
+
 
 // Component of our Tracks with properties
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))

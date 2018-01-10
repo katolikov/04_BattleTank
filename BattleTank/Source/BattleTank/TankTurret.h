@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Games by Mark0f.
 
 #pragma once
 
@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "UnrealMathUtility.h"
 #include "TankTurret.generated.h"
+
 
 // Component of our Turret with properties
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent)) //, hidecategories = ("Collision"))

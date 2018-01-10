@@ -1,4 +1,4 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #include "TankAIController.h"
 #include "TankAimingComponent.h"
@@ -29,8 +29,7 @@ void  ATankAIController::Tick(float DeltaTime)
 	if (!ensure(AimingComponent)) { return; }
 	AimingComponent->AimAt(Owner->GetActorLocation());
 
-	// TODO fix firing
-	// GetPawn()->Fire(); // Don't fire every frame
+	AimingComponent->Fire(); // Don't fire every frame
 }
 
 

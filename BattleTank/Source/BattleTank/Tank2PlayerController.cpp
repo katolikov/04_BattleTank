@@ -1,4 +1,4 @@
-// Copyright Games by Mark0f
+// Copyright Games by Mark0f.
 
 #include "Tank2PlayerController.h"
 #include "TankAimingComponent.h"
@@ -7,11 +7,13 @@
 
 #define OUT
 
+
 void ATank2PlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
 }
+
 
 void ATank2PlayerController::BeginPlay()
 {
@@ -20,6 +22,7 @@ void ATank2PlayerController::BeginPlay()
 	if (!ensure(AimingComponent)) { return; }
 	FoundAimingComponent(AimingComponent);
 }
+
 
 void ATank2PlayerController::AimTowardsCrosshair()
 {
@@ -32,6 +35,7 @@ void ATank2PlayerController::AimTowardsCrosshair()
 		AimingComponent->AimAt(HitLocation);
 	}
 }
+
 
 // GetWorldLocation Through the linetrace, true if hits linetrace
 bool ATank2PlayerController::GetSightRayHitLocation(FVector& HitLocation) const
@@ -52,20 +56,21 @@ bool ATank2PlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	return true;
 }
 
+
 bool ATank2PlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const
 {
 	FVector WorldLocation; // to be discarded
 
 	return  DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, WorldLocation, LookDirection);
-
 }
+
 
 bool ATank2PlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
 {
 	FHitResult Hit;
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = StartLocation + LookDirection * LineTraceRange;
-	if (ensure(GetWorld()->LineTraceSingleByChannel( Hit, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility)))
+	if (GetWorld()->LineTraceSingleByChannel( Hit, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility))
 	{
 		HitLocation = Hit.Location;
 
