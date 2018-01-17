@@ -25,11 +25,18 @@ void UTankAimingComponent::BeginPlay()
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
 		FireStatus = EFiringStatus::Reloading;
 	}
-	// TODO Handle aiming and locked states
+	else if (IsBarrelMove())
+	{
+		FireStatus = EFiringStatus::Aiming;
+	}
+	else
+	{
+		FireStatus = EFiringStatus::Locked;
+	}
 }
 
 
@@ -53,6 +60,15 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 }
 
 
+bool UTankAimingComponent::IsBarrelMove()
+{
+	if (!ensure(Barrel)) { return false; }
+
+	auto BarrelForwardVector = Barrel->GetForwardVector();
+	return !BarrelForwardVector.Equals(AimDirection, 0.01); // comparison of vectors
+}
+
+
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	if (!ensure (Barrel))
@@ -67,7 +83,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, LaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace); // last parameter must be present to prevent bug
 	if (bHaveAimSolution)
 	{
-		auto AimDirection = LaunchVelocity.GetSafeNormal();
+		AimDirection = LaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
 	}
 	// else do nothing

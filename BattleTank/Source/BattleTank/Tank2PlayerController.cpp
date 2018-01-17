@@ -26,6 +26,8 @@ void ATank2PlayerController::BeginPlay()
 
 void ATank2PlayerController::AimTowardsCrosshair()
 {
+	if (!(GetPawn())) { return; }
+
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 
