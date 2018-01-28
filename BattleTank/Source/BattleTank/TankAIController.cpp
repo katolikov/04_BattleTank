@@ -22,14 +22,17 @@ void  ATankAIController::Tick(float DeltaTime)
 	if (!ensure(Owner && AITank)) { return; }
 
 	// Move towards to the player
-	MoveToActor(Owner, AcceptanceRadius); // TODO check AcceptanceRadius in cm
+	MoveToActor(Owner, AcceptanceRadius);
 
 	// Aim towards the player
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 	AimingComponent->AimAt(Owner->GetActorLocation());
 
-	AimingComponent->Fire(); // Don't fire every frame
+	if (AimingComponent->GetFiringStatus() == EFiringStatus::Locked)
+	{
+		AimingComponent->Fire(); // Don't fire every frame
+	}
 }
 
 
