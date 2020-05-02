@@ -6,4 +6,4 @@
 + Heavy focus on control systems 
 + Also learning terrains, UI, terrain sculpting & more 
 + Dive right in and enjoy yourself!
-[Here i am] (https://vk.com/feed)
+
